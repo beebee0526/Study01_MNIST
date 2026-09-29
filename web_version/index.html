@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MNIST 손글씨 인식</title>
+  <meta name="description" content="순수 자바스크립트로 동작하는 MNIST 손글씨 숫자 인식 웹 앱">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 채점 필수 조건: 화면 맨 위에 학번/이름 텍스트 노출 (삭제·이동 금지) -->
+  <header id="student-info" class="student-info">학번: 2601949 | 이름: 송은비</header>
+
+  <main class="container">
+    <section class="intro">
+      <h1>MNIST 손글씨 숫자 인식</h1>
+      <p>아래 칸에 0~9 숫자를 하나 그려 보세요. 외부 라이브러리 없이 브라우저에서 CNN이 직접 추론합니다.</p>
+    </section>
+
+    <div class="workspace">
+      <section class="panel draw-panel" aria-label="그리기 영역">
+        <canvas id="draw-canvas" width="280" height="280" aria-label="숫자를 그리는 캔버스"></canvas>
+        <div class="controls">
+          <button id="clear-btn" type="button" class="btn primary">지우기</button>
+          <label class="btn secondary" for="file-input">이미지 열기</label>
+          <input id="file-input" type="file" accept="image/*" hidden>
+        </div>
+        <p class="hint">Esc 키로도 지울 수 있어요 · 굵고 크게 가운데에 그리면 더 정확합니다.</p>
+      </section>
+
+      <section class="panel result-panel" aria-live="polite" aria-label="인식 결과">
+        <div class="result-top">
+          <div>
+            <div class="label">예측</div>
+            <div id="pred-digit" class="pred-digit">?</div>
+            <div id="pred-conf" class="pred-conf">숫자를 그려 주세요</div>
+          </div>
+          <div class="preview-wrap">
+            <div class="label">모델 입력 (28×28)</div>
+            <canvas id="preview-canvas" width="28" height="28" aria-label="전처리된 28x28 입력"></canvas>
+          </div>
+        </div>
+        <ol id="prob-bars" class="prob-bars"></ol>
+      </section>
+    </div>
+
+    <footer class="model-info">
+      <span id="model-badge" class="badge">모델 불러오는 중…</span>
+      <span id="model-meta"></span>
+    </footer>
+  </main>
+
+  <!-- 순서 중요: 가중치 → 전처리 → 추론 엔진 → 앱 (ES 모듈/fetch 미사용: file:// 에서도 동작) -->
+  <script src="model/weights.js"></script>
+  <script src="js/preprocess.js"></script>
+  <script src="js/nn.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

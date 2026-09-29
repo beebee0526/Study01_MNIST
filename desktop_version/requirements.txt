@@ -1,0 +1,7 @@
+# PyTorch 는 GPU/CPU 환경에 맞게 https://pytorch.org/get-started/locally/ 안내대로 설치해도 됩니다.
+torch>=2.0
+torchvision>=0.15
+numpy>=1.24
+Pillow>=9.0
+# tools/ (임시 모델 생성) 에만 필요
+scipy>=1.10
