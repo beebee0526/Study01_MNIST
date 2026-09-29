@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+desktop_version/data/
+desktop_version/checkpoints/
+*.pt
+.DS_Store
